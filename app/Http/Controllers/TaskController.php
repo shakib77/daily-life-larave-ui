@@ -26,7 +26,6 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
         return view('home', compact('tasks'));
-//        return view('home');
     }
 
     /**
@@ -50,7 +49,7 @@ class TaskController extends Controller
         ]);
 
         Task::create($validatedData);
-        return redirect()->route('tasks')->with('success', 'Task added successfully!');
+        return redirect()->route('tasks.index')->with('success', 'Task added successfully!');
     }
 
     /**
