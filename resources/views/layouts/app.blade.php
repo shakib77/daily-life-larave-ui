@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -16,68 +16,85 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container-fluid {
+            flex: 1;
+            display: flex;
+            padding-left: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #6a1b9a; /* Purple color */
+            color: #ffffff;
+            transition: width 0.3s;
+            overflow-y: auto;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            color: #ffffff;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .custom-sidebar-item {
+            border-bottom: 1px solid #ffffff; /* White border */
+        }
+
+        .sidebar a:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .sidebar-heading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 20px;
+            color: #ffffff;
+            border-bottom: 2px solid #fff;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px; /* Adjust margin to accommodate the sidebar width */
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Daily Life') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<div id="app">
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-heading">Dashboard</div>
+            <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">Tasks</a>
+            <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">History</a>
+            <!-- Add more sidebar items as needed -->
+        </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
+        <!-- Dynamic Content Area -->
+        <div class="content">
             @yield('content')
-        </main>
+        </div>
     </div>
+</div>
 </body>
 </html>
