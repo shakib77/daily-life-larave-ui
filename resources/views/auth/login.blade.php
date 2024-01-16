@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container" style="margin-left: -100px;">
+    <nav class="navbar navbar-expand-md navbar-light bg-light-subtle">
+        <div class="container-fluid">
+            <a class="navbar-brand btn btn-primary text-white" href="{{ url('/') }}">
+                Go Home
+            </a>
+        </div>
+    </nav>
+    <div class="row justify-content-center"  style="margin-top: 100px">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>

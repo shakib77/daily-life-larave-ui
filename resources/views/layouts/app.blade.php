@@ -75,20 +75,21 @@
         .content {
             flex: 1;
             padding: 20px;
-            margin-left: 250px; /* Adjust margin to accommodate the sidebar width */
+            margin-left: 250px;
         }
     </style>
 </head>
 <body>
 <div id="app">
     <div class="container-fluid">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-heading">Dashboard</div>
-            <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">Tasks</a>
-            <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">History</a>
-            <!-- Add more sidebar items as needed -->
-        </div>
+        @auth
+            <div class="sidebar">
+                <div class="sidebar-heading">Dashboard</div>
+                <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">Tasks</a>
+                <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">History</a>
+                <!-- Add more sidebar items as needed -->
+            </div>
+        @endauth
 
         <!-- Dynamic Content Area -->
         <div class="content">
@@ -96,5 +97,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
