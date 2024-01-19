@@ -48,6 +48,8 @@ class TaskController extends Controller
             'description' => 'nullable|string',
         ]);
 
+        $validatedData['user_id'] = auth()->user()->id;
+
         Task::create($validatedData);
         return redirect()->route('tasks.index')->with('success', 'Task added successfully!');
     }

@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserInfoRequest;
+use App\Http\Services\UserInfoService;
 use App\Models\UserInfo;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UserInfoController extends Controller
 {
-    public function __construct()
+
+    protected UserInfoService $userInfoService;
+    public function __construct(UserInfoService $userInfoService)
     {
         $this->middleware('auth');
+        $this->userInfoService = $userInfoService;
     }
 
     /**
@@ -18,23 +24,25 @@ class UserInfoController extends Controller
      */
     public function index(): View
     {
-        return view('user-info');
+        return view('user-info.user-info.index');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('user-info.user-info.add-edit');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store($request): RedirectResponse
     {
-        //
+        $userInfo = $this->userInfoService->storeOrUpdate($request);
+
+        return redirect()->route('uerInfo.user-info.index')->with('user-info', $userInfo);
     }
 
     /**
@@ -50,7 +58,9 @@ class UserInfoController extends Controller
      */
     public function edit(UserInfo $userInfo)
     {
-        //
+//        $user-info = $this->userInfoService->getUserInfoById($user-info);
+//
+//        return view('user_infos.edit', compact('user-info'));
     }
 
     /**
@@ -58,8 +68,17 @@ class UserInfoController extends Controller
      */
     public function update(Request $request, UserInfo $userInfo)
     {
-        //
+//        $this->userInfoService->updateUserInfo($request, $user-info);
+//
+//        return redirect()->route('user_infos.index')->with('success', 'UserInfo updated successfully.');
     }
+
+    /*public function storeOrUpdate(UserInfoRequest $request): RedirectResponse
+    {
+        $user-info = $this->userInfoService->storeOrUpdate($request);
+
+        return redirect()->route('uerInfo.user-info.index')->with('user-info', $user-info);
+    }*/
 
     /**
      * Remove the specified resource from storage.

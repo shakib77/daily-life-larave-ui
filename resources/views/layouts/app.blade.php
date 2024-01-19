@@ -85,8 +85,8 @@
         @auth
             <div class="sidebar">
                 <div class="sidebar-heading">Dashboard</div>
+                <a href="{{ route('user-info.index') }}" class="custom-sidebar-item">Personal Information</a>
                 <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">Tasks</a>
-                <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">History</a>
                 <!-- Add more sidebar items as needed -->
             </div>
         @endauth
