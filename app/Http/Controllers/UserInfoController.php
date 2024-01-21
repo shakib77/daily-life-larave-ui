@@ -15,7 +15,6 @@ class UserInfoController extends Controller
     protected UserInfoService $userInfoService;
     public function __construct(UserInfoService $userInfoService)
     {
-        $this->middleware('auth');
         $this->userInfoService = $userInfoService;
     }
 
@@ -24,7 +23,7 @@ class UserInfoController extends Controller
      */
     public function index(): View
     {
-        return view('user-info.user-info.index');
+        return view('user-info.index');
     }
 
     /**
@@ -32,17 +31,20 @@ class UserInfoController extends Controller
      */
     public function create(): View
     {
-        return view('user-info.user-info.add-edit');
+        return view('user-info.add-edit');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store($request): RedirectResponse
+    public function store(UserInfoRequest $request): RedirectResponse
     {
+        /*if (!auth()->check()) {
+            abort(403, 'Unauthorized');
+        }*/
         $userInfo = $this->userInfoService->storeOrUpdate($request);
 
-        return redirect()->route('uerInfo.user-info.index')->with('user-info', $userInfo);
+        return redirect()->route('user-info.index')->with('user-info', $userInfo);
     }
 
     /**

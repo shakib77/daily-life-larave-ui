@@ -11,9 +11,8 @@
 <div class="container mt-5">
     <h2>Create/Update Data</h2>
 
-    <form id="dataForm">
+    <form method="POST" action="{{ route('user-info.store') }}">
         @csrf
-
         <div class="form-group">
             <label for="profession_type">Profession Type:</label>
             <select class="form-control" id="profession_type" name="profession_type" required>

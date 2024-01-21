@@ -12,7 +12,7 @@ class UserInfoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->id == auth()->id();
     }
 
     /**
@@ -25,9 +25,9 @@ class UserInfoRequest extends FormRequest
         return [
                 'gender' => 'required|in:male,female,other',
                 'profession_type' => 'required|in:1,2,3',
-                // Add validation rules for other common fields
             ] + $this->specificValidationRules();
     }
+
     private function specificValidationRules(): array
     {
         switch ($this->input('profession_type')) {

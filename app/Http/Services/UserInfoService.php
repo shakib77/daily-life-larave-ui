@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Http\Requests\UserInfoRequest;
+use Illuminate\Http\Request;
 use App\Models\Businessman;
 use App\Models\Serviceholder;
 use App\Models\Student;
@@ -118,7 +119,7 @@ class UserInfoService
         }
     }
 
-    public function storeOrUpdate($request)
+    public function storeOrUpdate(UserInfoRequest $request)
     {
         $user = auth()->user();
 
