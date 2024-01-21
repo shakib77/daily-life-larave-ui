@@ -12,7 +12,7 @@ class UserInfoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->id == auth()->id();
+        return true;
     }
 
     /**
@@ -22,14 +22,17 @@ class UserInfoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $validation = [
                 'gender' => 'required|in:male,female,other',
                 'profession_type' => 'required|in:1,2,3',
             ] + $this->specificValidationRules();
+        //dd($validation);
+        return $validation;
     }
 
     private function specificValidationRules(): array
     {
+
         switch ($this->input('profession_type')) {
             case 1: // Student
                 return [
@@ -55,7 +58,6 @@ class UserInfoRequest extends FormRequest
                     'monthly_cost' => 'nullable|numeric|min:0',
                     'monthly_income' => 'nullable|numeric|min:0',
                 ];
-            // Add more cases if needed for other profession types
             default:
                 return [];
         }

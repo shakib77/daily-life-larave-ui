@@ -39,6 +39,7 @@ class UserInfoController extends Controller
      */
     public function store(UserInfoRequest $request): RedirectResponse
     {
+//        dd('ddcd');
         /*if (!auth()->check()) {
             abort(403, 'Unauthorized');
         }*/

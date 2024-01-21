@@ -25,6 +25,17 @@
 
         <div class="row">
 
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select class="form-control" id="gender" name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
             <div class="col-6" id="company_name_field">
                 <div class="form-group">
                     <label for="company_name">Company Name:</label>

@@ -14,6 +14,7 @@ class UserInfoService
 {
     public function storeUserInfo(UserInfoRequest $request)
     {
+//        dd($request->toArray());
         return DB::transaction(function () use ($request) {
             $userInfo = UserInfo::create([
                 'user_id' => auth()->user()->id,
@@ -21,7 +22,10 @@ class UserInfoService
                 'profession_type' => $request->input('profession_type'),
             ]);
 
+//            dd($userInfo->toArray());
+
             $this->storeSpecificInfo($request, $userInfo);
+
 
             return $userInfo;
         });
@@ -124,6 +128,7 @@ class UserInfoService
         $user = auth()->user();
 
         $userInfo = UserInfo::where('user_id', $user->id)->first();
+
 
         if ($userInfo) {
             $this->updateUserInfo($request, $userInfo);
