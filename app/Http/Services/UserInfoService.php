@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 use App\Http\Requests\UserInfoRequest;
-use Illuminate\Http\Request;
 use App\Models\Businessman;
 use App\Models\Serviceholder;
 use App\Models\Student;
@@ -47,10 +46,11 @@ class UserInfoService
 
     private function storeSpecificInfo(UserInfoRequest $request, UserInfo $userInfo): void
     {
+//        dd($userInfo->id, $request->input('profession_type'));
         switch ($request->input('profession_type')) {
             case 1: // Student
                 Student::create([
-                    'user_id' => $userInfo->id,
+                    'user_id' => auth()->user()->id,
                     'institute_name' => $request->input('institute_name'),
                     'daily_cost' => $request->input('daily_cost'),
                     'monthly_cost' => $request->input('monthly_cost'),
@@ -61,7 +61,7 @@ class UserInfoService
                 break;
             case 2: // Businessman
                 Businessman::create([
-                    'user_id' => $userInfo->id,
+                    'user_id' => auth()->user()->id,
                     'company_name' => $request->input('company_name'),
                     'daily_cost' => $request->input('daily_cost'),
                     'monthly_cost' => $request->input('monthly_cost'),
@@ -71,7 +71,7 @@ class UserInfoService
                 break;
             case 3:
                 ServiceHolder::create([
-                    'user_id' => $userInfo->id,
+                    'user_id' => auth()->user()->id,
                     'company_name' => $request->input('company_name'),
                     'daily_cost' => $request->input('daily_cost'),
                     'monthly_cost' => $request->input('monthly_cost'),
@@ -139,8 +139,11 @@ class UserInfoService
         return $userInfo;
     }
 
-    public function getUserInfo($id)
+    public function getUserInfo()
     {
-        return UserInfo::findOrFail($id);
+        $id = auth()->user()->id;
+       $useInfo = UserInfo::findOrFail($id);
+//       if ($useInfo)
+        return $useInfo;
     }
 }

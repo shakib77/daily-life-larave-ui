@@ -90,4 +90,9 @@ class UserInfoController extends Controller
     {
         //
     }
+
+    public function userInfo()
+    {
+        return $this->userInfoService->getUserInfo();
+    }
 }
