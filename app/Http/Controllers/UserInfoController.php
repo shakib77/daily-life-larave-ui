@@ -28,6 +28,7 @@ class UserInfoController extends Controller
     {
         try {
             $userInfo = $this->userInfoService->getUserInfo();
+//            dd($userInfo);
             return view('user-info.index', compact('userInfo'));
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -98,14 +99,5 @@ class UserInfoController extends Controller
     public function destroy(UserInfo $userInfo)
     {
         //
-    }
-
-    public function userInfo()
-    {
-        $userInfo = $this->userInfoService->getUserInfo();
-        dd($userInfo);
-//        return view('user_infos.edit', compact('user-info'));
-        return view('user-info.index');
-
     }
 }

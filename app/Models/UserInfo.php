@@ -16,6 +16,12 @@ class UserInfo extends Model
         'profession_type',
     ];
 
+
+    const PROFESSION_TYPE = [
+        1 => 'Student',
+        2 => 'Businessman',
+        3 => 'Service Holder',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

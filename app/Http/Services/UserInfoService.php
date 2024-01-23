@@ -139,17 +139,24 @@ class UserInfoService
         return $userInfo;
     }
 
-    public function getUserInfo()
+    public function getUserInfo(): array
     {
         $userId = auth()->user()->id;
-       $useInfo = UserInfo::where('user_id', $userId)->firstOrFail();
-       $professionInfo = [];
 
-       if ($useInfo['profession_type'] == 1) {
-           $professionInfo =
-       }
+        $userInfo = UserInfo::where('user_id', $userId)->firstOrFail();
+        $professionInfo = $this->getProfessionInfo($userInfo);
 
-       dd($useInfo->toArray());
-        return $useInfo;
+//        dd($userInfo->toArray(), $professionInfo->toArray());
+        return compact('userInfo', 'professionInfo');
+    }
+
+    private function getProfessionInfo(UserInfo $userInfo)
+    {
+        return match ($userInfo->profession_type) {
+            1 => Student::where('user_id', $userInfo->user_id)->firstOrFail(),
+            2 => Businessman::where('user_id', $userInfo->user_id)->firstOrFail(),
+            3 => Serviceholder::where('user_id', $userInfo->user_id)->firstOrFail(),
+            default => null,
+        };
     }
 }
