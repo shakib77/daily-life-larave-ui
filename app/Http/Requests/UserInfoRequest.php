@@ -22,12 +22,10 @@ class UserInfoRequest extends FormRequest
      */
     public function rules(): array
     {
-        $validation = [
+        return [
                 'gender' => 'required|in:male,female,other',
                 'profession_type' => 'required|in:1,2,3',
             ] + $this->specificValidationRules();
-        //dd($validation);
-        return $validation;
     }
 
     private function specificValidationRules(): array

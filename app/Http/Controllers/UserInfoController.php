@@ -6,13 +6,16 @@ use App\Http\Requests\UserInfoRequest;
 use App\Http\Services\UserInfoService;
 use App\Models\UserInfo;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserInfoController extends Controller
 {
 
     protected UserInfoService $userInfoService;
+
     public function __construct(UserInfoService $userInfoService)
     {
         $this->userInfoService = $userInfoService;
@@ -21,9 +24,15 @@ class UserInfoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(): JsonResponse|View
     {
-        return view('user-info.index');
+        try {
+            $userInfo = $this->userInfoService->getUserInfo();
+            return view('user-info.index', compact('userInfo'));
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
+        }
     }
 
     /**
@@ -93,6 +102,10 @@ class UserInfoController extends Controller
 
     public function userInfo()
     {
-        return $this->userInfoService->getUserInfo();
+        $userInfo = $this->userInfoService->getUserInfo();
+        dd($userInfo);
+//        return view('user_infos.edit', compact('user-info'));
+        return view('user-info.index');
+
     }
 }

@@ -141,9 +141,15 @@ class UserInfoService
 
     public function getUserInfo()
     {
-        $id = auth()->user()->id;
-       $useInfo = UserInfo::findOrFail($id);
-//       if ($useInfo)
+        $userId = auth()->user()->id;
+       $useInfo = UserInfo::where('user_id', $userId)->firstOrFail();
+       $professionInfo = [];
+
+       if ($useInfo['profession_type'] == 1) {
+           $professionInfo =
+       }
+
+       dd($useInfo->toArray());
         return $useInfo;
     }
 }

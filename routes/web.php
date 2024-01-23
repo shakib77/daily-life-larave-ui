@@ -29,7 +29,6 @@ Route::resource('tasks', TaskController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('user-info', UserInfoController::class);
-    Route::get('/user-info-details', [UserInfoController::class, 'userInfo'])->name('user-info-details');
 });
 
 
