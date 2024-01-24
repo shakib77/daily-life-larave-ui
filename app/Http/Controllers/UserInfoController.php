@@ -39,9 +39,15 @@ class UserInfoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(): JsonResponse|View
     {
-        return view('user-info.add-edit');
+        try {
+            $userInfoData = $this->userInfoService->getUserInfo();
+            return view('user-info.add-edit', compact('userInfoData'));
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
+        }
     }
 
     /**

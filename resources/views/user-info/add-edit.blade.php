@@ -29,10 +29,17 @@
                 <div class="form-group">
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="gender" required>
-                        <option value="" disabled selected>Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="" disabled @if(!$userInfoData['userInfo']->genger) selected @endif>Select Gender</option>
+                        <option value="male"
+                                @if($userInfoData['userInfo']->gender == 1) selected @endif>
+                            Male
+                        </option>
+                        <option value="female"
+                                @if($userInfoData['userInfo']->gender == 2) selected @endif>
+                            Female
+                        </option>
+                        <option value="other"
+                                @if($userInfoData['userInfo']->gender == 3) selected @endif>Other</option>
                     </select>
                 </div>
             </div>

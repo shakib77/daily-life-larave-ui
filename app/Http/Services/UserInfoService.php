@@ -146,7 +146,6 @@ class UserInfoService
         $userInfo = UserInfo::where('user_id', $userId)->firstOrFail();
         $professionInfo = $this->getProfessionInfo($userInfo);
 
-//        dd($userInfo->toArray(), $professionInfo->toArray());
         return compact('userInfo', 'professionInfo');
     }
 
