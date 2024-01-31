@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -59,6 +58,7 @@
                                 </tbody>
                             </table>
 
+                            {{-- todo: modal section starts--}}
                             <div class="modal fade" id="taskModal" tabindex="-1" role="dialog"
                                  aria-labelledby="taskModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -111,9 +111,8 @@
     <script>
         $(document).ready(function () {
             $('#taskModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
+                var button = $(event.relatedTarget);
                 var taskId = button.data('task-id');
-
                 var modal = $(this);
                 if (taskId) {
                     modal.find('.modal-title').text('Edit Task');
@@ -124,6 +123,7 @@
                         url: '{{ url('tasks') }}/' + taskId,
                         type: 'GET',
                         success: function (response) {
+                            console.log({response});
                             modal.find('#title').val(response.title);
                             modal.find('#date').val(response.date);
                             modal.find('#time').val(response.time);
@@ -157,24 +157,26 @@
                     }
                 });
             });
-
-            function deleteTask(taskId) {
-                if (confirm('Are you sure you want to delete this task?')) {
-                    $.ajax({
-                        url: '{{ url('tasks') }}/' + taskId,
-                        type: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response) {
-                            location.reload();
-                        },
-                        error: function (error) {
-                            console.error(error);
-                        }
-                    });
-                }
-            }
         })
+
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                $.ajax({
+                    url: '{{ route('tasks.destroy', ['task' => ':taskId']) }}'.replace(':taskId', taskId),
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        console.log('Task deleted successfully');
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.error('Error deleting task:', error);
+                    }
+                });
+            }
+        }
+
     </script>
 @endpush

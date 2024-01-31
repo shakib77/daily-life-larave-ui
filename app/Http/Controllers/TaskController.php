@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -85,15 +86,14 @@ class TaskController extends Controller
         $task->update($validatedData);
         return redirect()->route('/dashboard')->with('success', 'Task updated successfully!');
     }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task): RedirectResponse
+    public function destroy(Task $task): JsonResponse
     {
         $task->delete();
-
-        return redirect()->route('tasks.index')
-            ->with('status', 'Task deleted successfully');
+        return response()->json(['status' => 'success', 'message' => 'Task deleted successfully']);
     }
 
 }
