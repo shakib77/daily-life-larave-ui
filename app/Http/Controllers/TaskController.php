@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -58,10 +59,18 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show($id): JsonResponse
     {
-        //
+        try {
+            $task = Task::findOrFail($id);
+            return response()->json(['status' => 'success', 'message' => 'Task fetch successfully', 'data' => $task]);
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
+        }
+
     }
+
 
     /**
      * Show the form for editing the specified resource.

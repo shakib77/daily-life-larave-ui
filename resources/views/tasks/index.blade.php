@@ -120,14 +120,14 @@
                     modal.find('#taskId').val(taskId);
 
                     $.ajax({
-                        url: '{{ url('tasks') }}/' + taskId,
+                        url: '{{ route('tasks.show', ['task' => ':taskId']) }}'.replace(':taskId', taskId),
                         type: 'GET',
                         success: function (response) {
-                            console.log({response});
-                            modal.find('#title').val(response.title);
-                            modal.find('#date').val(response.date);
-                            modal.find('#time').val(response.time);
-                            modal.find('#description').val(response.description);
+                            // console.log('ddd',response.data);
+                            modal.find('#title').val(response.data.title);
+                            modal.find('#date').val(response.data.date);
+                            modal.find('#time').val(response.data.time);
+                            modal.find('#description').val(response.data.description);
                         }
                     });
                 } else {
