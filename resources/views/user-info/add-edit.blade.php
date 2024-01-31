@@ -9,6 +9,14 @@
 <body>
 
 <div class="container mt-5">
+    <a href="{{ route('user-info.index') }}" class="btn btn-info btn-sm float-right">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+        </svg>
+        Back</a>
+
     <h2>Create/Update Data</h2>
 
     <form method="POST" action="{{ route('user-info.store') }}">
@@ -115,11 +123,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#monthly_edu_expenses_field, #pocket_money_field, #company_name_field, #daily_cost_field, #monthly_cost_field, #monthly_income_field, #employee_count_field, #institute_name_field').hide();
-
-        $('#profession_type').change(function () {
-            let selectedProfession = $(this).val();
-
+        function showRelevantFields(selectedProfession) {
             $('#monthly_edu_expenses_field, #pocket_money_field, #company_name_field, #daily_cost_field, #monthly_cost_field, #monthly_income_field, #employee_count_field, #institute_name_field').hide();
 
             if (selectedProfession === '2') {
@@ -129,9 +133,23 @@
             } else if (selectedProfession === '1') {
                 $('#pocket_money_field, #monthly_edu_expenses_field, #institute_name_field, #daily_cost_field, #monthly_cost_field, #monthly_income_field').show();
             }
+        }
+
+        showRelevantFields('');
+
+        const initialProfessionType = $('#profession_type').val();
+
+        showRelevantFields(initialProfessionType);
+
+        $('#profession_type').change(function () {
+            const selectedProfession = $(this).val();
+            console.log(selectedProfession);
+
+            showRelevantFields(selectedProfession);
         });
     });
 </script>
+
 
 </body>
 </html>

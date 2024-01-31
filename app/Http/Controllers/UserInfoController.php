@@ -27,9 +27,8 @@ class UserInfoController extends Controller
     public function index(): JsonResponse|View
     {
         try {
-            $userInfo = $this->userInfoService->getUserInfo();
-//            dd($userInfo);
-            return view('user-info.index', compact('userInfo'));
+            $userInfoData = $this->userInfoService->getUserInfo();
+            return view('user-info.index', compact('userInfoData'));
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
