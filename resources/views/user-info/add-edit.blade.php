@@ -16,10 +16,14 @@
         <div class="form-group">
             <label for="profession_type">Profession Type:</label>
             <select class="form-control" id="profession_type" name="profession_type" required>
-                <option value="" disabled selected>Select Profession</option>
-                <option value="1">Student</option>
-                <option value="2">Businessman</option>
-                <option value="3">Service Holder</option>
+                <option value="" disabled @if(!$userInfoData['userInfo']->profession_type) selected @endif>Select
+                    Profession
+                </option>
+                <option value="1" @if($userInfoData['userInfo']->profession_type == 1) selected @endif>Student</option>
+                <option value="2" @if($userInfoData['userInfo']->profession_type == 2) selected @endif>Businessman
+                </option>
+                <option value="3" @if($userInfoData['userInfo']->profession_type == 3) selected @endif>Service Holder
+                </option>
             </select>
         </div>
 
@@ -29,67 +33,75 @@
                 <div class="form-group">
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="gender" required>
-                        <option value="" disabled @if(!$userInfoData['userInfo']->genger) selected @endif>Select Gender</option>
-                        <option value="male"
-                                @if($userInfoData['userInfo']->gender == 1) selected @endif>
-                            Male
+                        <option value="" disabled @if($userInfoData['userInfo']->gender == '') selected @endif>Select
+                            Gender
                         </option>
-                        <option value="female"
-                                @if($userInfoData['userInfo']->gender == 2) selected @endif>
+                        <option value="male" @if($userInfoData['userInfo']->gender == 'male') selected @endif>Male
+                        </option>
+                        <option value="female" @if($userInfoData['userInfo']->gender == 'female') selected @endif>
                             Female
                         </option>
-                        <option value="other"
-                                @if($userInfoData['userInfo']->gender == 3) selected @endif>Other</option>
+                        <option value="other" @if($userInfoData['userInfo']->gender == 'other') selected @endif>Other
+                        </option>
                     </select>
+
                 </div>
             </div>
             <div class="col-6" id="company_name_field">
                 <div class="form-group">
                     <label for="company_name">Company Name:</label>
-                    <input type="text" class="form-control" id="company_name" name="company_name">
+                    <input type="text" class="form-control" id="company_name" name="company_name"
+                           value="{{$userInfoData['professionInfo']->company_name}}">
                 </div>
             </div>
 
             <div class="col-6" id="institute_name_field">
                 <div class="form-group">
                     <label for="institute_name">Institute Name:</label>
-                    <input type="text" class="form-control" id="institute_name" name="institute_name">
+                    <input type="text" class="form-control" id="institute_name" name="institute_name"
+                           value="{{$userInfoData['professionInfo']->institute_name}}">
                 </div>
             </div>
             <div class="col-6" id="daily_cost_field">
                 <div class="form-group">
                     <label for="daily_cost">Daily Cost:</label>
-                    <input type="text" class="form-control" id="daily_cost" name="daily_cost">
+                    <input type="text" class="form-control" id="daily_cost" name="daily_cost"
+                           value="{{$userInfoData['professionInfo']->daily_cost}}">
                 </div>
             </div>
             <div class="col-6" id="monthly_cost_field">
                 <div class="form-group">
                     <label for="monthly_cost">Monthly Cost:</label>
-                    <input type="text" class="form-control" id="monthly_cost" name="monthly_cost">
+                    <input type="text" class="form-control" id="monthly_cost" name="monthly_cost"
+                           value="{{$userInfoData['professionInfo']->monthly_cost}}">
                 </div>
             </div>
             <div class="col-6" id="monthly_income_field">
                 <div class="form-group">
                     <label for="monthly_income">Monthly Income:</label>
-                    <input type="text" class="form-control" id="monthly_income" name="monthly_income">
+                    <input type="text" class="form-control" id="monthly_income" name="monthly_income"
+                           value="{{$userInfoData['professionInfo']->monthly_income}}">
                 </div>
             </div>
             <div class="col-6" id="employee_count_field">
                 <div class="form-group">
                     <label for="employee_count">Employee Count:</label>
-                    <input type="text" class="form-control" id="employee_count" name="employee_count">
+                    <input type="text" class="form-control" id="employee_count" name="employee_count"
+                           value="{{$userInfoData['professionInfo']->employee_count}}">
                 </div>
             </div>
             <div class="col-6" id="pocket_money_field">
                 <div class="form-group">
                     <label for="pocket_money">Pocket Money:</label>
-                    <input type="text" class="form-control" id="pocket_money" name="pocket_money">
+                    <input type="text" class="form-control" id="pocket_money" name="pocket_money"
+                           value="{{$userInfoData['professionInfo']->pocket_money}}">
                 </div>
             </div>
             <div class="col-6" id="monthly_edu_expenses_field">
                 <div class="form-group">
                     <label for="monthly_edu_expenses">Monthly Educational Expenses:</label>
-                    <input type="text" class="form-control" id="monthly_edu_expenses" name="monthly_edu_expenses">
+                    <input type="text" class="form-control" id="monthly_edu_expenses" name="monthly_edu_expenses"
+                           value="{{$userInfoData['professionInfo']->monthly_edu_expenses}}">
                 </div>
             </div>
         </div>
