@@ -7,6 +7,7 @@ use App\Models\Businessman;
 use App\Models\Serviceholder;
 use App\Models\Student;
 use App\Models\UserInfo;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 class UserInfoService
@@ -139,15 +140,24 @@ class UserInfoService
         return $userInfo;
     }
 
+
     public function getUserInfo(): array
     {
-        $userId = auth()->user()->id;
+        try {
+            $userId = auth()->user()->id;
+            $userInfo = UserInfo::where('user_id', $userId)->firstOrFail();
+            $professionInfo = $this->getProfessionInfo($userInfo);
 
-        $userInfo = UserInfo::where('user_id', $userId)->firstOrFail();
-        $professionInfo = $this->getProfessionInfo($userInfo);
-
-        return compact('userInfo', 'professionInfo');
+            return compact('userInfo', 'professionInfo');
+        } catch (ModelNotFoundException $exception) {
+            return [
+                'status' => 'error',
+                'message' => 'No user info found for the current user.',
+                'error' => $exception->getMessage(),
+            ];
+        }
     }
+
 
     private function getProfessionInfo(UserInfo $userInfo)
     {

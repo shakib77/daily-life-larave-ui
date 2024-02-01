@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
+
+
 @section('content')
     <div class="container mt-5">
         <a href="{{ route('user-info.create') }}" class="btn btn-success btn-sm float-right">
 
-            @if($userInfoData['userInfo']) Update @else  Add @endif
+            @if($userInfoData['status'] === 'error') Add @else  Update @endif
         </a>
 
         <h2>User Info details</h2>
 
-        @if($userInfoData['userInfo'])
+        @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo'])
             <div class="form-group">
                 <label for="profession_type">Profession Type:</label>
                 <input type="text" class="form-control" id="profession_type" name="profession_type" readonly

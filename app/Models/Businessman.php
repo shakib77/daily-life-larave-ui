@@ -10,6 +10,15 @@ class Businessman extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'company_name',
+        'daily_cost',
+        'monthly_cost',
+        'monthly_income',
+        'employee_count',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
