@@ -85,8 +85,12 @@
             <div class="sidebar">
                 <div class="sidebar-heading">Dashboard</div>
                 <a href="{{ route('user-info.index') }}" class="custom-sidebar-item">Personal Information</a>
-                <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">Tasks</a>
-                <!-- Add more sidebar items as needed -->
+                <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">All Tasks</a>
+                <a href="{{ route('tasks.index', ['filter' => 1]) }}" class="custom-sidebar-item">Daily Tasks</a>
+                <a href="{{ route('tasks.index', ['filter' => 2]) }}" class="custom-sidebar-item">Weekly Tasks</a>
+                <a href="{{ route('tasks.index', ['filter' => 3]) }}" class="custom-sidebar-item">Monthly Tasks</a>
+                <a href="{{ route('tasks.index', ['filter' => 4]) }}" class="custom-sidebar-item">Yearly Tasks</a>
+
             </div>
         @endauth
 

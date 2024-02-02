@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -21,15 +22,29 @@ class TaskController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
         $userId = auth()->user()->id;
-        $tasks = Task::where('user_id', $userId)->get();
+        $filterValue = request('filter', 5);
+        $tasks = Task::where('user_id', $userId);
+        if ($filterValue == 1) {
+            $tasks->whereDate('date', Carbon::today());
+        } elseif ($filterValue == 2) {
+            $tasks->whereBetween('date', [
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek()
+            ]);
+        } elseif ($filterValue == 3) {
+            $tasks->whereMonth('date', Carbon::now()->month);
+        } elseif ($filterValue == 4) {
+            $tasks->whereYear('date', Carbon::now()->year);
+        }
+
+        $tasks = $tasks->get();
+
         return view('tasks.index', compact('tasks'));
     }
+
 
     /**
      * Show the form for creating a new resource.
