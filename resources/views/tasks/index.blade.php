@@ -114,6 +114,7 @@
                 var button = $(event.relatedTarget);
                 var taskId = button.data('task-id');
                 var modal = $(this);
+
                 if (taskId) {
                     modal.find('.modal-title').text('Edit Task');
                     modal.find('#taskForm').attr('action', '{{ url('tasks') }}/' + taskId);
@@ -123,11 +124,13 @@
                         url: '{{ route('tasks.show', ['task' => ':taskId']) }}'.replace(':taskId', taskId),
                         type: 'GET',
                         success: function (response) {
-                            // console.log('ddd',response.data);
                             modal.find('#title').val(response.data.title);
                             modal.find('#date').val(response.data.date);
                             modal.find('#time').val(response.data.time);
                             modal.find('#description').val(response.data.description);
+                        },
+                        error: function (error) {
+                            console.error('Error fetching task details:', error);
                         }
                     });
                 } else {
@@ -139,8 +142,16 @@
             });
 
             $('#taskForm').submit(function (event) {
-                event.preventDefault();
                 var form = $(this);
+
+                // Check if any required field is empty
+                if (form[0].checkValidity() === false) {
+                    // Trigger the browser's default validation UI
+                    form[0].reportValidity();
+                    return;
+                }
+
+                event.preventDefault();
                 var url = form.attr('action');
                 var method = form.attr('method');
 
@@ -153,11 +164,14 @@
                         location.reload();
                     },
                     error: function (error) {
-                        console.error(error);
+                        console.error('Error submitting form:', error);
+                    },
+                    complete: function () {
+                        // Enable the form and hide any loading indicators
                     }
                 });
             });
-        })
+        });
 
         function deleteTask(taskId) {
             if (confirm('Are you sure you want to delete this task?')) {
@@ -177,6 +191,6 @@
                 });
             }
         }
-
     </script>
+
 @endpush

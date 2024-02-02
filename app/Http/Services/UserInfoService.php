@@ -150,11 +150,13 @@ class UserInfoService
 
             return compact('userInfo', 'professionInfo');
         } catch (ModelNotFoundException $exception) {
-            return [
+
+            return [];
+            /*return [
                 'status' => 'error',
                 'message' => 'No user info found for the current user.',
                 'error' => $exception->getMessage(),
-            ];
+            ];*/
         }
     }
 

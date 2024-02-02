@@ -24,19 +24,20 @@
         <div class="form-group">
             <label for="profession_type">Profession Type:</label>
             <select class="form-control" id="profession_type" name="profession_type" required>
-                <option value="" disabled @if($userInfoData['status'] === 'error') selected @endif>Select
+                <option value="" disabled @if(is_array($userInfoData) && count($userInfoData) > 0) selected @endif>
+                    Select
                     Profession
                 </option>
                 <option value="1"
-                        @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo']->profession_type == 1) selected @endif>
+                        @if(is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['userInfo']->profession_type == 1) selected @endif>
                     Student
                 </option>
                 <option value="2"
-                        @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo']->profession_type == 2) selected @endif>
+                        @if(is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['userInfo']->profession_type == 2) selected @endif>
                     Businessman
                 </option>
                 <option value="3"
-                        @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo']->profession_type == 3) selected @endif>
+                        @if(is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['userInfo']->profession_type == 3) selected @endif>
                     Service Holder
                 </option>
             </select>
@@ -48,19 +49,20 @@
                 <div class="form-group">
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="gender" required>
-                        <option value="" disabled @if($userInfoData['status'] === 'error') selected @endif>Select
+                        <option value="" disabled
+                                @if(is_array($userInfoData) && count($userInfoData) > 0) selected @endif>Select
                             Gender
                         </option>
                         <option value="male"
-                                @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo']->gender == 'male') selected @endif>
+                                @if(is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['userInfo']->gender == 'male') selected @endif>
                             Male
                         </option>
                         <option value="female"
-                                @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo']->gender == 'female') selected @endif>
+                                @if(is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['userInfo']->gender == 'female') selected @endif>
                             Female
                         </option>
                         <option value="other"
-                                @if($userInfoData['status'] !== 'error' && $userInfoData['userInfo']->gender == 'other') selected @endif>
+                                @if(is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['userInfo']->gender == 'other') selected @endif>
                             Other
                         </option>
                     </select>
@@ -71,7 +73,7 @@
                 <div class="form-group">
                     <label for="company_name">Company Name:</label>
                     <input type="text" class="form-control" id="company_name" name="company_name"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->company_name}}">
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->company_name ? $userInfoData['professionInfo']->company_name : ''}}">
                 </div>
             </div>
 
@@ -79,53 +81,54 @@
                 <div class="form-group">
                     <label for="institute_name">Institute Name:</label>
                     <input type="text" class="form-control" id="institute_name" name="institute_name"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->institute_name}}">
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->institute_name ? $userInfoData['professionInfo']->institute_name : ''}}">
                 </div>
             </div>
             <div class="col-6" id="daily_cost_field">
                 <div class="form-group">
                     <label for="daily_cost">Daily Cost:</label>
-                    <input type="text" class="form-control" id="daily_cost" name="daily_cost"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->daily_cost}}">
+                    <input type="number" class="form-control" id="daily_cost" name="daily_cost" required
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->daily_cost ? $userInfoData['professionInfo']->daily_cost : ''}}">
                 </div>
             </div>
             <div class="col-6" id="monthly_cost_field">
                 <div class="form-group">
                     <label for="monthly_cost">Monthly Cost:</label>
-                    <input type="text" class="form-control" id="monthly_cost" name="monthly_cost"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->monthly_cost}}">
+                    <input type="number" class="form-control" id="monthly_cost" name="monthly_cost"
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->monthly_cost ? $userInfoData['professionInfo']->monthly_cost : ''}}">
                 </div>
             </div>
             <div class="col-6" id="monthly_income_field">
                 <div class="form-group">
                     <label for="monthly_income">Monthly Income:</label>
-                    <input type="text" class="form-control" id="monthly_income" name="monthly_income"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->monthly_income}}">
+                    <input type="number" class="form-control" id="monthly_income" name="monthly_income"
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->monthly_income ? $userInfoData['professionInfo']->monthly_income : ''}}">
                 </div>
             </div>
             <div class="col-6" id="employee_count_field">
                 <div class="form-group">
                     <label for="employee_count">Employee Count:</label>
-                    <input type="text" class="form-control" id="employee_count" name="employee_count"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->employee_count}}">
+                    <input type="number" class="form-control" id="employee_count" name="employee_count"
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->employee_count ? $userInfoData['professionInfo']->employee_count : ''}}">
                 </div>
             </div>
             <div class="col-6" id="pocket_money_field">
                 <div class="form-group">
                     <label for="pocket_money">Pocket Money:</label>
-                    <input type="text" class="form-control" id="pocket_money" name="pocket_money"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->pocket_money}}">
+                    <input type="number" class="form-control" id="pocket_money" name="pocket_money"
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->pocket_money ? $userInfoData['professionInfo']->pocket_money : ''}}">
                 </div>
             </div>
             <div class="col-6" id="monthly_edu_expenses_field">
                 <div class="form-group">
                     <label for="monthly_edu_expenses">Monthly Educational Expenses:</label>
-                    <input type="text" class="form-control" id="monthly_edu_expenses" name="monthly_edu_expenses"
-                           value="{{$userInfoData['status'] !== 'error' && $userInfoData['professionInfo']->monthly_edu_expenses}}">
+                    <input type="number" class="form-control" id="monthly_edu_expenses" name="monthly_edu_expenses"
+                           value="{{is_array($userInfoData) && count($userInfoData) > 0 && $userInfoData['professionInfo']->monthly_edu_expenses ? $userInfoData['professionInfo']->monthly_edu_expenses : ''}}">
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn"><span class="sr-only">Loading...</span>Submit</button>
+
     </form>
 </div>
 
@@ -135,6 +138,7 @@
 
 <script>
     $(document).ready(function () {
+        $('.sr-only').hide();
         function showRelevantFields(selectedProfession) {
             $('#monthly_edu_expenses_field, #pocket_money_field, #company_name_field, #daily_cost_field, #monthly_cost_field, #monthly_income_field, #employee_count_field, #institute_name_field').hide();
 
@@ -158,6 +162,10 @@
             console.log(selectedProfession);
 
             showRelevantFields(selectedProfession);
+        });
+
+        $('#submit-btn').click(function() {
+            $('.sr-only').show();
         });
     });
 </script>
