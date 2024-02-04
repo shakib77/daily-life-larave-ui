@@ -73,7 +73,7 @@
         /* Content Area */
         .content {
             flex: 1;
-            padding: 20px;
+            /*padding: 20px;*/
             margin-left: 250px;
         }
     </style>
@@ -90,12 +90,32 @@
                 <a href="{{ route('tasks.index', ['filter' => 2]) }}" class="custom-sidebar-item">Weekly Tasks</a>
                 <a href="{{ route('tasks.index', ['filter' => 3]) }}" class="custom-sidebar-item">Monthly Tasks</a>
                 <a href="{{ route('tasks.index', ['filter' => 4]) }}" class="custom-sidebar-item">Yearly Tasks</a>
-
             </div>
         @endauth
 
-        <!-- Dynamic Content Area -->
         <div class="content">
+            @auth
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <span class="navbar-text">
+                                Welcome, {{ Auth::user()->name }}
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            @endauth
             @yield('content')
         </div>
     </div>
