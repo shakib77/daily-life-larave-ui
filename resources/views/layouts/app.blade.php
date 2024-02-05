@@ -84,12 +84,20 @@
         @auth
             <div class="sidebar">
                 <div class="sidebar-heading">Dashboard</div>
-                <a href="{{ route('user-info.index') }}" class="custom-sidebar-item">Personal Information</a>
-                <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">All Tasks</a>
-                <a href="{{ route('tasks.index', ['filter' => 1]) }}" class="custom-sidebar-item">Daily Tasks</a>
-                <a href="{{ route('tasks.index', ['filter' => 2]) }}" class="custom-sidebar-item">Weekly Tasks</a>
-                <a href="{{ route('tasks.index', ['filter' => 3]) }}" class="custom-sidebar-item">Monthly Tasks</a>
-                <a href="{{ route('tasks.index', ['filter' => 4]) }}" class="custom-sidebar-item">Yearly Tasks</a>
+                @if(auth()->user()->role === 'admin')
+                    {{-- Show admin menu/items --}}
+                    <a href="{{ route('home') }}">Admin Dashboard</a>
+                @elseif(auth()->user()->role === 'user')
+                    <a href="{{ route('user-info.index') }}" class="custom-sidebar-item">Personal Information</a>
+                    <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">All Tasks</a>
+                    <a href="{{ route('tasks.index', ['filter' => 1]) }}" class="custom-sidebar-item">Daily Tasks</a>
+                    <a href="{{ route('tasks.index', ['filter' => 2]) }}" class="custom-sidebar-item">Weekly Tasks</a>
+                    <a href="{{ route('tasks.index', ['filter' => 3]) }}" class="custom-sidebar-item">Monthly Tasks</a>
+                    <a href="{{ route('tasks.index', ['filter' => 4]) }}" class="custom-sidebar-item">Yearly Tasks</a>
+                @else
+                    <a href="{{ route('home') }}">User Dashboard</a>
+                @endif
+
             </div>
         @endauth
 

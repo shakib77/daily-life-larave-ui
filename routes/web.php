@@ -25,10 +25,18 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('tasks', TaskController::class);
+/*Route::resource('tasks', TaskController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('user-info', UserInfoController::class);
+})*/;
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
 });
 
-
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::resource('tasks', TaskController::class);
+    Route::resource('user-info', UserInfoController::class);
+});
