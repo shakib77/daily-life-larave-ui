@@ -21,12 +21,12 @@ class VerificationController extends Controller
 
     use VerifiesEmails;
 
-    /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::TASKS;
+//    /**
+//     * Where to redirect users after verification.
+//     *
+//     * @var string
+//     */
+//    protected string $redirectTo = RouteServiceProvider::TASKS;
 
     /**
      * Create a new controller instance.

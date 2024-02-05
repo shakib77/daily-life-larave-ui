@@ -24,7 +24,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 /*Route::resource('tasks', TaskController::class);
 
@@ -33,9 +32,13 @@ Route::middleware(['auth'])->group(function () {
 })*/;
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'role:admin', 'role:user'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/users', [AdminController::class, 'index'])->name('users');
+    Route::get('/user/{userId}', [AdminController::class, 'userProfile'])->name('user');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {

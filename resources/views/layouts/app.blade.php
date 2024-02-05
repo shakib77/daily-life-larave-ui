@@ -85,8 +85,7 @@
             <div class="sidebar">
                 <div class="sidebar-heading">Dashboard</div>
                 @if(auth()->user()->role === 'admin')
-                    {{-- Show admin menu/items --}}
-                    <a href="{{ route('home') }}">Admin Dashboard</a>
+                    <a href="{{ route('users') }}">Users</a>
                 @elseif(auth()->user()->role === 'user')
                     <a href="{{ route('user-info.index') }}" class="custom-sidebar-item">Personal Information</a>
                     <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">All Tasks</a>
@@ -95,7 +94,7 @@
                     <a href="{{ route('tasks.index', ['filter' => 3]) }}" class="custom-sidebar-item">Monthly Tasks</a>
                     <a href="{{ route('tasks.index', ['filter' => 4]) }}" class="custom-sidebar-item">Yearly Tasks</a>
                 @else
-                    <a href="{{ route('home') }}">User Dashboard</a>
+                    <a href="{{ route('home') }}">Home</a>
                 @endif
 
             </div>

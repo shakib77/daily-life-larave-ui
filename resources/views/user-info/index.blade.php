@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
-
 @section('content')
-    <div class="container mt-5">
-        <a href="{{ route('user-info.create') }}" class="btn btn-success btn-sm float-right">
+    <div class="container mt-2">
+        @if(auth()->user()->role === \App\Models\User::ROLE['USER'])
+            <a href="{{ route('user-info.create') }}" class="btn btn-success btn-sm float-right">
 
-            @if( is_array($userInfoData) && count($userInfoData) > 0) Update @else  Add @endif
-        </a>
+                @if( is_array($userInfoData) && count($userInfoData) > 0) Update @else  Add @endif
+            </a>
+        @endif
+
 
         <h2>User Info details</h2>
 

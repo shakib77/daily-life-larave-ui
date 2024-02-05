@@ -17,7 +17,6 @@ class CheckRole
 
     public function handle(Request $request, Closure $next, $role)
     {
-//        dd($role);
         $routeName = $request->route()->getName();
 
         $openRoutes = [
@@ -25,6 +24,14 @@ class CheckRole
             'login',
             'register',
         ];
+
+        if ($request->user() && !in_array($routeName, $openRoutes)) {
+//            dd('hello');
+            match ($request->user()->role) {
+                'admin' => redirect('/dashboard'),
+                'user' => redirect('/tasks'),
+            };
+        }
 
         if (in_array($routeName, $openRoutes)) {
             return $next($request);

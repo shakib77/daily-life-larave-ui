@@ -21,12 +21,12 @@ class ConfirmPasswordController extends Controller
 
     use ConfirmsPasswords;
 
-    /**
-     * Where to redirect users when the intended url fails.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::TASKS;
+//    /**
+//     * Where to redirect users when the intended url fails.
+//     *
+//     * @var string
+//     */
+//    protected string $redirectTo = RouteServiceProvider::TASKS;
 
     /**
      * Create a new controller instance.

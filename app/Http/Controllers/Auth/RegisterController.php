@@ -24,12 +24,12 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::TASKS;
+//    /**
+//     * Where to redirect users after registration.
+//     *
+//     * @var string
+//     */
+//    protected string $redirectTo = RouteServiceProvider::TASKS;
 
     /**
      * Create a new controller instance.
