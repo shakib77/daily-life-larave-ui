@@ -15,7 +15,7 @@ class CheckRole
      */
     // app/Http/Middleware/CheckRole.php
 
-    public function handle(Request $request, Closure $next, ...$role)
+    public function handle(Request $request, Closure $next, $role)
     {
 //        dd($role);
         $routeName = $request->route()->getName();

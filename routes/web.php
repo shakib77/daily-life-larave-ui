@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserInfoController;
@@ -33,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
 });
 
