@@ -38,6 +38,7 @@ Route::middleware(['auth', 'role:admin', 'role:user'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users', [AdminController::class, 'index'])->name('users');
+    Route::get('/report', [AdminController::class, 'userReports'])->name('user-report');
     Route::get('/user/{userId}', [AdminController::class, 'userProfile'])->name('user');
 });
 

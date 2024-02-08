@@ -86,6 +86,7 @@
                 <div class="sidebar-heading">Dashboard</div>
                 @if(auth()->user()->role === 'admin')
                     <a href="{{ route('users') }}">Users</a>
+                    <a href="{{ route('user-report') }}">Report</a>
                 @elseif(auth()->user()->role === 'user')
                     <a href="{{ route('user-info.index') }}" class="custom-sidebar-item">Personal Information</a>
                     <a href="{{ route('tasks.index') }}" class="custom-sidebar-item">All Tasks</a>

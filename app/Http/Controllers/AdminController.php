@@ -38,4 +38,9 @@ class AdminController extends Controller
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
         }
     }
+
+    public function userReports(): View
+    {
+        return view('admin.report');
+    }
 }
