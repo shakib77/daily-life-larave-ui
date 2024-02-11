@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
@@ -39,8 +40,10 @@ class AdminController extends Controller
         }
     }
 
-    public function userReports(): View
+    public function userReports(Request $request): View
     {
-        return view('admin.report');
+        $reportData = $this->userInfoService->adminReport();
+//        dd($reportData);
+        return view('admin.report', compact('reportData'));
     }
 }

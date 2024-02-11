@@ -76,6 +76,7 @@
             /*padding: 20px;*/
             margin-left: 250px;
         }
+
     </style>
 </head>
 <body>

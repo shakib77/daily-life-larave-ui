@@ -194,4 +194,38 @@ class UserInfoService
             default => null,
         };
     }
+
+    public function adminReport ()
+    {
+        $counts = UserInfo::select('profession_type', \DB::raw('count(*) as count'))
+            ->groupBy('profession_type')
+            ->get()
+            ->pluck('count', 'profession_type');
+
+        $totalCount = $counts->sum();
+
+        $percentages = $counts->map(function ($count) use ($totalCount) {
+            return $totalCount > 0 ? ($count / $totalCount) * 100 : 0;
+        });
+
+        $data = [];
+        foreach ($counts as $professionType => $count) {
+
+            $professionTypeName = match ($professionType) {
+                1 => 'Student',
+                2 => 'Businessman',
+                3 => 'Service Holder',
+                default => 'Unknown',
+            };
+
+            $data[] = [
+                'profession_type' => $professionType,
+                'profession_type_name' => $professionTypeName,
+                'count' => $count,
+                'percentage' => $percentages[$professionType],
+            ];
+        }
+
+        return $data;
+    }
 }
