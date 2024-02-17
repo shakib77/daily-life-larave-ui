@@ -14,6 +14,7 @@ class UserInfo extends Model
         'user_id',
         'gender',
         'profession_type',
+        'financial_condition',
     ];
 
 

@@ -20,8 +20,8 @@ class UserInfoService
 
         $financial_condition = $this->financialCondition($monthlyIncome);
 
-
         return DB::transaction(function () use ($request, $financial_condition) {
+//        dd($financial_condition);
             $userInfo = UserInfo::create([
                 'user_id' => auth()->user()->id,
                 'gender' => $request->input('gender'),
@@ -40,10 +40,16 @@ class UserInfoService
 
     public function updateUserInfo(UserInfoRequest $request, UserInfo $userInfo)
     {
-        return DB::transaction(function () use ($request, $userInfo) {
+        $monthlyIncome = $request->input('monthly_income');
+
+        $financial_condition = $this->financialCondition($monthlyIncome);
+
+        return DB::transaction(function () use ($request, $userInfo, $financial_condition) {
             $userInfo->update([
                 'gender' => $request->input('gender'),
                 'profession_type' => $request->input('profession_type'),
+                'financial_condition' => $financial_condition,
+
             ]);
 
             $this->updateSpecificInfo($request, $userInfo);
@@ -272,15 +278,15 @@ class UserInfoService
         }
     }
 
-    private function financialCondition($monthlyIncome): string
+    private function financialCondition($monthlyIncome): int
     {
 
-        if ($monthlyIncome < 2000) {
-            $financial_condition = '3';
-        } elseif ($monthlyIncome < 3000) {
-            $financial_condition = '2';
+        if ($monthlyIncome <= 20000) {
+            $financial_condition = 3;
+        } elseif ($monthlyIncome <= 30000) {
+            $financial_condition = 2;
         } else {
-            $financial_condition = '1';
+            $financial_condition = 1;
         }
 
         return $financial_condition;
