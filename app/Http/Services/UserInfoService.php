@@ -16,11 +16,17 @@ class UserInfoService
     public function storeUserInfo(UserInfoRequest $request)
     {
 //        dd($request->toArray());
-        return DB::transaction(function () use ($request) {
+        $monthlyIncome = $request->input('monthly_income');
+
+        $financial_condition = $this->financialCondition($monthlyIncome);
+
+
+        return DB::transaction(function () use ($request, $financial_condition) {
             $userInfo = UserInfo::create([
                 'user_id' => auth()->user()->id,
                 'gender' => $request->input('gender'),
                 'profession_type' => $request->input('profession_type'),
+                'financial_condition' => $financial_condition,
             ]);
 
 //            dd($userInfo->toArray());
@@ -125,6 +131,7 @@ class UserInfoService
         }
     }
 
+    //todo: this is entry point for storing userInfo
     public function storeOrUpdate(UserInfoRequest $request)
     {
         $user = auth()->user();
@@ -237,6 +244,7 @@ class UserInfoService
             }
             $professionType = $request->input('profession_type');
             $gender = $request->input('gender');
+            $financialCondition = $request->input('financial_condition');
 
 //            $users = User::query()->where('role', 'user');
             $users = User::query();
@@ -252,11 +260,29 @@ class UserInfoService
                 $users->where('user_infos.gender', $gender);
             }
 
+            if ($financialCondition) {
+                $users->where('user_infos.financial_condition', $financialCondition);
+            }
+
             $userData = $users->get();
 
             return $userData->toArray();
         } catch (ModelNotFoundException $exception) {
             return [];
         }
+    }
+
+    private function financialCondition($monthlyIncome): string
+    {
+
+        if ($monthlyIncome < 2000) {
+            $financial_condition = '3';
+        } elseif ($monthlyIncome < 3000) {
+            $financial_condition = '2';
+        } else {
+            $financial_condition = '1';
+        }
+
+        return $financial_condition;
     }
 }

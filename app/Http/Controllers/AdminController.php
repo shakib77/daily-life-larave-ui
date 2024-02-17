@@ -24,7 +24,7 @@ class AdminController extends Controller
     {
 //        $users = User::paginate(10);
 
-        $users = User::all();
+        $users = User::where('role', 'user')->get();
 
         return view('admin.users', compact('users'));
     }

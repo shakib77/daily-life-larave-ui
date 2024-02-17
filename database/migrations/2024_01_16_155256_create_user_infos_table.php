@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->integer('profession_type')->nullable();
+            $table->integer('financial_condition')->nullable();
             $table->timestamps();
         });
     }
