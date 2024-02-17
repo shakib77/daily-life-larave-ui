@@ -46,4 +46,9 @@ class AdminController extends Controller
 //        dd($reportData);
         return view('admin.report', compact('reportData'));
     }
+    public function financialReports(Request $request): View
+    {
+//        dd($request->query());
+        return view('admin.financial-report');
+    }
 }
