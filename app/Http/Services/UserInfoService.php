@@ -164,7 +164,7 @@ class UserInfoService
     public function getUserInfoByUserId($userId): array
     {
         try {
-            if(auth()->user()->role === User::ROLE['ADMIN']) {
+            if (auth()->user()->role === User::ROLE['ADMIN']) {
                 $userInfo = UserInfo::where('user_id', $userId)->firstOrFail();
                 $professionInfo = $this->getProfessionInfo($userInfo);
 
@@ -195,7 +195,7 @@ class UserInfoService
         };
     }
 
-    public function adminReport ()
+    public function adminReport(): array
     {
         $counts = UserInfo::select('profession_type', \DB::raw('count(*) as count'))
             ->groupBy('profession_type')
@@ -227,5 +227,36 @@ class UserInfoService
         }
 
         return $data;
+    }
+
+    public function financialReports($request): array
+    {
+        try {
+            if (count($request->input()) <= 0) {
+                return [];
+            }
+            $professionType = $request->input('profession_type');
+            $gender = $request->input('gender');
+
+//            $users = User::query()->where('role', 'user');
+            $users = User::query();
+
+            $users->join('user_infos', 'users.id', '=', 'user_infos.user_id');
+
+
+            if ($professionType) {
+                $users->where('user_infos.profession_type', $professionType);
+            }
+
+            if ($gender) {
+                $users->where('user_infos.gender', $gender);
+            }
+
+            $userData = $users->get();
+
+            return $userData->toArray();
+        } catch (ModelNotFoundException $exception) {
+            return [];
+        }
     }
 }

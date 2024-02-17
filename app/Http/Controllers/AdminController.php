@@ -48,7 +48,11 @@ class AdminController extends Controller
     }
     public function financialReports(Request $request): View
     {
-//        dd($request->query());
         return view('admin.financial-report');
+    }
+    public function financialReportFilterData(Request $request): array
+    {
+        $users = $this->userInfoService->financialReports($request);
+        return $users;
     }
 }

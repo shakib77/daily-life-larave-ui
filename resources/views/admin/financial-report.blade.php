@@ -1,26 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container pl-5 pr-5">
         <h1>Reports</h1>
         <div class="row">
             <div class="col-3">
                 <div class="form-group">
                     <label for="profession_type">Profession Type:</label>
                     <select class="form-control" id="profession_type" name="profession_type">
-                        <option value="">
-                            Select
-                            Profession
-                        </option>
-                        <option value="1">
-                            Student
-                        </option>
-                        <option value="2">
-                            Businessman
-                        </option>
-                        <option value="3">
-                            Service Holder
-                        </option>
+                        <option value="" disabled>Select Profession</option>
+                        <option value="1">Student</option>
+                        <option value="2">Businessman</option>
+                        <option value="3">Service Holder</option>
                     </select>
                 </div>
             </div>
@@ -28,18 +19,10 @@
                 <div class="form-group">
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="gender">
-                        <option value="" disabled>
-                            Select Gender
-                        </option>
-                        <option value="male">
-                            Male
-                        </option>
-                        <option value="female">
-                            Female
-                        </option>
-                        <option value="other">
-                            Other
-                        </option>
+                        <option value="" disabled>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
             </div>
@@ -47,7 +30,7 @@
                 <div class="form-group">
                     <label for="financial_condition">Financial Condition:</label>
                     <select class="form-control" id="financial_condition" name="financial_condition">
-                        <option value="">Select Financial Condition</option>
+                        <option value="" disabled>Select Financial Condition</option>
                         <option value="1">Rich</option>
                         <option value="2">Solvent</option>
                         <option value="3">Poor</option>
@@ -58,6 +41,42 @@
                 <button class="btn btn-primary mt-4" id="searchButton">Search</button>
             </div>
         </div>
+        <div class="row mt-4" id="tableContainer">
+        </div>
+        {{--@if($users && count($users) > 0)
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user['id'] }}</td>
+                            <td>{{ $user['name'] }}</td>
+                            <td>{{ $user['email'] }}</td>
+                            <td>
+                                <a href="{{ route('user', ['userId' => $user['id']]) }}" class="btn btn-info">
+                                    View Profile
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div class="row">
+                <div class="col">
+                    <p>No users found yet</p>
+                </div>
+            </div>
+        @endif--}}
     </div>
 @endsection
 
@@ -82,20 +101,26 @@
                     data.financial_condition = financialCondition;
                 }
 
-
-                /*var data = {
-                    profession_type: professionType,
-                    gender: gender,
-                    financial_condition: financialCondition
-                };*/
-
                 $.ajax({
-                    url: '{{ route("financial-report") }}',
+                    url: '{{ route("financial-report-filter-data") }}',
                     type: 'GET',
                     data: data,
                     success: function (response) {
-                        console.log(response);
+                        if (response.length > 0) {
+                            var html = '<div class="col"><table class="table"><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr></thead><tbody>';
+
+                            response.forEach(function(user, index) {
+                                html += '<tr><td>' + (index + 1) + '</td><td>' + user.name + '</td><td>' + user.email + '</td><td><a href="/user/' + user.user_id + '" class="btn btn-info">View Profile</a></td></tr>';
+                            });
+
+                            html += '</tbody></table></div>';
+
+                            $('#tableContainer').html(html);
+                        } else {
+                            $('#tableContainer').html('<div class="col"><p>No data available</p></div>');
+                        }
                     },
+
                     error: function (xhr, status, error) {
                         console.error(xhr.responseText);
                     }

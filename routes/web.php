@@ -40,6 +40,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users', [AdminController::class, 'index'])->name('users');
     Route::get('/report', [AdminController::class, 'userReports'])->name('user-report');
     Route::get('/financial-report', [AdminController::class, 'financialReports'])->name('financial-report');
+    Route::get('/financial-report-filter-data', [AdminController::class, 'financialReportFilterData'])->name('financial-report-filter-data');
     Route::get('/user/{userId}', [AdminController::class, 'userProfile'])->name('user');
 });
 
