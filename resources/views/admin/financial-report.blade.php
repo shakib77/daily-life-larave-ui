@@ -43,40 +43,6 @@
         </div>
         <div class="row mt-4" id="tableContainer">
         </div>
-        {{--@if($users && count($users) > 0)
-            <div class="row">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($users as $user)
-                        <tr>
-                            <td>{{ $user['id'] }}</td>
-                            <td>{{ $user['name'] }}</td>
-                            <td>{{ $user['email'] }}</td>
-                            <td>
-                                <a href="{{ route('user', ['userId' => $user['id']]) }}" class="btn btn-info">
-                                    View Profile
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @else
-            <div class="row">
-                <div class="col">
-                    <p>No users found yet</p>
-                </div>
-            </div>
-        @endif--}}
     </div>
 @endsection
 

@@ -52,7 +52,6 @@ class AdminController extends Controller
     }
     public function financialReportFilterData(Request $request): array
     {
-        $users = $this->userInfoService->financialReports($request);
-        return $users;
+        return $this->userInfoService->financialReports($request);
     }
 }
