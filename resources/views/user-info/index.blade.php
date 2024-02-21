@@ -59,7 +59,7 @@
                 @if($userInfoData['professionInfo']->monthly_cost)
                     <div class="col-6" id="monthly_cost_field">
                         <div class="form-group">
-                            <label for="monthly_cost">Daily Cost:</label>
+                            <label for="monthly_cost">Monthly Cost:</label>
                             <input type="text" class="form-control" id="monthly_cost" name="monthly_cost" readonly
                                    value="{{ $userInfoData['professionInfo']->monthly_cost }}">
                         </div>
@@ -69,7 +69,7 @@
                 @if($userInfoData['professionInfo']->monthly_income)
                     <div class="col-6" id="monthly_income_field">
                         <div class="form-group">
-                            <label for="monthly_income">Daily Cost:</label>
+                            <label for="monthly_income">Monthly Income:</label>
                             <input type="text" class="form-control" id="monthly_income" name="monthly_income" readonly
                                    value="{{ $userInfoData['professionInfo']->monthly_income }}">
                         </div>
@@ -79,7 +79,7 @@
                 @if($userInfoData['professionInfo']->employee_count)
                     <div class="col-6" id="employee_count_field">
                         <div class="form-group">
-                            <label for="employee_count">Daily Cost:</label>
+                            <label for="employee_count">Employee count:</label>
                             <input type="text" class="form-control" id="employee_count" name="employee_count"
                                    readonly
                                    value="{{ $userInfoData['professionInfo']->employee_count }}">
@@ -90,7 +90,7 @@
                 @if($userInfoData['professionInfo']->pocket_money)
                     <div class="col-6" id="pocket_money_field">
                         <div class="form-group">
-                            <label for="pocket_money">Daily Cost:</label>
+                            <label for="pocket_money">Pocket Money:</label>
                             <input type="text" class="form-control" id="pocket_money" name="pocket_money"
                                    readonly
                                    value="{{ $userInfoData['professionInfo']->pocket_money }}">
@@ -101,7 +101,7 @@
                 @if($userInfoData['professionInfo']->monthly_edu_expenses)
                     <div class="col-6" id="monthly_edu_expenses_field">
                         <div class="form-group">
-                            <label for="monthly_edu_expenses">Daily Cost:</label>
+                            <label for="monthly_edu_expenses">Monthly Educational Expenses:</label>
                             <input type="text" class="form-control" id="monthly_edu_expenses"
                                    name="monthly_edu_expenses"
                                    readonly

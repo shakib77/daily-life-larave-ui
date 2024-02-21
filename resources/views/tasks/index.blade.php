@@ -4,7 +4,34 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">{{ __('All Tasks') }}</div>
+                    <div class="card-header">
+                        @if(request()->has('filter'))
+                            @php
+                                $filter = request()->input('filter');
+                                $headerText = '';
+                                switch ($filter) {
+                                    case 1:
+                                        $headerText = __('Daily Tasks');
+                                        break;
+                                    case 2:
+                                        $headerText = __('Weekly Tasks');
+                                        break;
+                                    case 3:
+                                        $headerText = __('Monthly Tasks');
+                                        break;
+                                    case 4:
+                                        $headerText = __('Yearly Tasks');
+                                        break;
+                                    default:
+                                        $headerText = __('All Tasks');
+                                        break;
+                                }
+                            @endphp
+                            {{ $headerText }}
+                        @else
+                            {{ __('Tasks') }}
+                        @endif
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -70,8 +97,10 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="taskForm" action="{{ route('tasks.store') }}" method="POST">
+                                            <form id="taskForm" method="POST">
                                                 @csrf
+                                                <input type="hidden" name="_method" id="formMethod" value="POST">
+
                                                 <input type="hidden" name="id" id="taskId">
                                                 <div class="form-group">
                                                     <label for="title">Title:</label>
@@ -117,8 +146,13 @@
 
                 if (taskId) {
                     modal.find('.modal-title').text('Edit Task');
-                    modal.find('#taskForm').attr('action', '{{ url('tasks') }}/' + taskId);
+                    modal.find('#formMethod').val('PUT');
+
+                    modal.find('#taskForm').attr('action', '{{ route('tasks.update', ['task' => ':taskId']) }}'.replace(':taskId', taskId));
                     modal.find('#taskId').val(taskId);
+                    // modal.find('#taskForm').attr('method', 'PUT');
+                    modal.find('#taskForm').attr('method', 'POST'); // Set method to POST
+                    modal.find('#taskForm').append('<input type="hidden" name="_method" value="PUT">');
 
                     $.ajax({
                         url: '{{ route('tasks.show', ['task' => ':taskId']) }}'.replace(':taskId', taskId),
@@ -135,6 +169,8 @@
                     });
                 } else {
                     modal.find('.modal-title').text('Add Task');
+                    modal.find('#formMethod').val('POST');
+
                     modal.find('#taskForm').attr('action', '{{ route('tasks.store') }}');
                     modal.find('#taskId').val('');
                     modal.find('#taskForm')[0].reset();

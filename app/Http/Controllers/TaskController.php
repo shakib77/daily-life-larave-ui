@@ -12,16 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
     public function index(): View
     {
         $userId = auth()->user()->id;
@@ -101,15 +91,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task): RedirectResponse
     {
+//        dd($task);
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
+//            'time' => 'required|date_format:H:i',
+            'time' => ['required', 'date_format:H:i:s'],
             'description' => 'nullable|string',
         ]);
 
         $task->update($validatedData);
-        return redirect()->route('/dashboard')->with('success', 'Task updated successfully!');
+        return redirect()->back()->with('success', 'Task updated successfully!')->with('reload', true);
+
+//        return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
     }
 
     /**
