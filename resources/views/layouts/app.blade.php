@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Daily Life') }}</title>
+{{--    <title>{{ config('app.name', 'Daily Life') }}</title>--}}
+    <title>Daily Life</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -107,17 +107,17 @@
             @auth
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto align-items-center">
                         <li class="nav-item">
                             <span class="navbar-text">
-                                Welcome, {{ Auth::user()->name }}
+                                Welcome, <span style="font-size: 18px; font-weight: bold">{{ Auth::user()->name }}</span>
                             </span>
                         </li>
                         <li class="nav-item">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                            <a class="nav-link" href="{{ route('logout') }}"
+                            <a class="nav-link btn-outline-danger ml-2 rounded btn-sm" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>

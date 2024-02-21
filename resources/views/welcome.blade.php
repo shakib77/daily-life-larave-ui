@@ -16,7 +16,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            animation: floatAnimation 1s infinite alternate; /* Floating animation */
+            animation: floatAnimation 1s infinite alternate;
         }
 
         @keyframes floatAnimation {
@@ -24,12 +24,18 @@
                 transform: translateY(0);
             }
             100% {
-                transform: translateY(-10px); /* Adjust as needed for the floating height */
+                transform: translateY(-10px);
             }
         }
 
         .custom-card {
-            width: 300px; /* You can adjust the width as needed */
+            width: 500px;
+        }
+
+        .welcome-text {
+            margin-bottom: 50px;
+            font-size: larger;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -40,13 +46,14 @@
         <div class="card-body">
             @if (Route::has('login'))
                 <div class="text-center">
+                    <div class="welcome-text">Welcome to Daily Life Manager</div>
                     @auth
                         <a href="{{ url('/home') }}" class="btn btn-primary">Home</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-primary">Log in</a>
+                        <a href="{{ route('login') }}" class="btn btn-success">Log in</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-secondary ml-2">Register</a>
+                            <a href="{{ route('register') }}" class="btn btn-dark ml-2">Register</a>
                         @endif
                     @endauth
                 </div>
