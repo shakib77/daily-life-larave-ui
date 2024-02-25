@@ -4,7 +4,7 @@
 <div class="container" style="margin-left: -100px;">
     <nav class="navbar navbar-expand-md navbar-light bg-light-subtle">
         <div class="container-fluid">
-            <a class="navbar-brand btn btn-primary text-white" href="{{ url('/') }}">
+            <a class="navbar-brand btn btn-dark text-white btn-sm" href="{{ url('/') }}">
                 Go Home
             </a>
         </div>

@@ -7,7 +7,7 @@
             @foreach($reportData as $item)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100 text-center"
-                         style="background-color: {{ $item['profession_type'] == 1 ? 'rgba(34, 1, 128, 0.8)' : ($item['profession_type'] == 2 ? 'rgba(0, 128, 0, 0.8)' : 'rgba(0, 0, 255, 0.8)') }};
+                         style="background-color: {{ $item['profession_type'] == 1 ? 'rgba(117, 15, 240, 0.86)' : ($item['profession_type'] == 2 ? 'rgba(5, 74, 68, 0.8)' : 'rgba(43, 111, 19, 0.8)') }};
                         border-radius: .5rem;
                         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.125);
                         transition: background-color 0.2s ease-in-out;">

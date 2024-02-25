@@ -7,7 +7,7 @@
     <title>Your Title</title>
     <style>
         body {
-            background-color: #2d3748;
+            background-color: #067693;
             overflow: hidden;
         }
 

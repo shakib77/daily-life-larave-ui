@@ -8,8 +8,8 @@
             animation: floatAnimation 1s infinite alternate;">
         <div class="card" style="
         width: 500px;
-        background-color: #6a1b9a;
-        box-shadow: 0 4px 8px rgb(151,28,224);
+        background-color: #093d88;
+        box-shadow: 0 4px 8px rgb(23,58,199);
         ">
             <div class="card-body">
                 <div style="
