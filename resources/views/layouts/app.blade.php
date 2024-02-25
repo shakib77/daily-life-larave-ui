@@ -96,8 +96,6 @@
                     <a href="{{ route('tasks.index', ['filter' => 2]) }}" class="custom-sidebar-item">Weekly Tasks</a>
                     <a href="{{ route('tasks.index', ['filter' => 3]) }}" class="custom-sidebar-item">Monthly Tasks</a>
                     <a href="{{ route('tasks.index', ['filter' => 4]) }}" class="custom-sidebar-item">Yearly Tasks</a>
-                    <a href="{{ route('user-info.index') }}" class="accordion-item custom-sidebar-item">Personal
-                        Information</a>
 
                     {{--<div class="accordion" id="userAccordion">
                         <a class="accordion-item" href="#tasksCollapse" data-toggle="collapse" aria-expanded="true"
